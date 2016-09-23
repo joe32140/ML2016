@@ -1,9 +1,9 @@
 import numpy as np
 import sys
 
-t = np.loadtxt(sys.argv[1])
+t = np.loadtxt(sys.argv[2])
 t = t.T
-col = t[int(sys.argv[2])]
+col = t[int(sys.argv[1])]
 col = np.sort(col)
 #print col
 
