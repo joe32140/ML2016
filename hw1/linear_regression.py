@@ -1,7 +1,7 @@
 import numpy as np
 import math
 
-numberofiter = 10
+numberofiter = 1
 
 data_path = 'data/train.csv'
 test_path = 'data/test_X.csv'
@@ -18,9 +18,6 @@ for i in range(5760):
         x[10, i] = float(0)
 #x_scale = (sum(x.T)/5760).reshape((18, 1));
 #x = (x.T/x_scale.T).T
-#print x_scale.shape
-#print x_scale
-#print x[9, :]
 
 test_data = np.genfromtxt (test_path, delimiter=",")
 test_data = test_data[:, 2:]
@@ -28,28 +25,29 @@ for i in range(240):
     for j in range(9):
         if math.isnan(test_data[i*18+10, j]):
             test_data[i*18+10, j] = float(0)
-#print test_data[10]
-#print x[9, :]
 # Gradient Descend
 theta = np.random.random(18*9).reshape((18*9, 1))
 bias = np.random.random(1);
 alpha = 0.000001
-last_loss = 0.0
 converge = False
 it = 0
 while not converge:
-    for j in range(5750):#5750
+    for j in range(50):#5750
         hypothesis =np.dot(x[:, j:j+9].reshape((1, 18*9)),theta) + bias
-        #print x[:, :9]
-        print x[9, j+9]
-        loss =  hypothesis - x[9, j+9]
-        print("Iteration %d | Cost: %f" % (j, loss))
-        gradient = x[:, j:j+9].reshape((18*9, 1))*loss
-        #print gradient
+        print theta.shape
+        loss =  hypothesis - x[9, j+9] + 5*np.dot(theta.T, theta)
+        print loss.shape
+        print("Iteration %d | Cost: %f" % (j, loss**2))
+        gradient = x[:, j:j+9].reshape((18*9, 1))*loss + 10*theta
+        print gradient.shape
+        #print gradient[:5]
         theta = theta - alpha*gradient
         bias = bias - alpha*loss
+       # if loss**2 < 0.0001:
+       #     converge = True
+       #     break
     it = it + 1
-    if loss**2 < 0.001 or it >= numberofiter:
+    if  it >= numberofiter:
         converge = True  
 
 # Testing
@@ -60,7 +58,10 @@ ans.write('id,value\n')
 for i in range(240):
     #query = (test_data[i:i+18, :].T/x_scale.T).T
     #predict = sum(sum(query*theta)) + bias
+   
     predict = np.dot(test_data[i:i+18, :].reshape(1, 18*9), theta) + bias
+    #predict = np.dot(x[:, i*9:i*9+9].reshape(1, 18*9), theta) + bias    
+
     #print test_data[i:i+18, :]
     #print predict
     ans.write('id_%d,%f\n' %(i, predict))
