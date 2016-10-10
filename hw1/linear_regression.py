@@ -1,10 +1,10 @@
 import numpy as np
 import math
 
-numberofiter = 1
+numberofiter = 10
 
 data_path = 'data/train.csv'
-test_data = 'data/test_X.csv'
+test_path = 'data/test_X.csv'
 # Parsing Data
 my_data = np.genfromtxt (data_path, delimiter=",")
 my_data = my_data[1:]
@@ -22,7 +22,7 @@ for i in range(5760):
 #print x_scale
 #print x[9, :]
 
-test_data = np.genfromtxt (test_data, delimiter=",")
+test_data = np.genfromtxt (test_path, delimiter=",")
 test_data = test_data[:, 2:]
 for i in range(240):
     for j in range(9):
@@ -31,17 +31,17 @@ for i in range(240):
 #print test_data[10]
 #print x[9, :]
 # Gradient Descend
-theta = np.zeros(18*9).reshape((18*9, 1))
-bias = 0.0
+theta = np.random.random(18*9).reshape((18*9, 1))
+bias = np.random.random(1);
 alpha = 0.000001
 last_loss = 0.0
 converge = False
 it = 0
 while not converge:
-    for j in range(500):#5750
+    for j in range(5750):#5750
         hypothesis =np.dot(x[:, j:j+9].reshape((1, 18*9)),theta) + bias
         #print x[:, :9]
-        print hypothesis.shape
+        print x[9, j+9]
         loss =  hypothesis - x[9, j+9]
         print("Iteration %d | Cost: %f" % (j, loss))
         gradient = x[:, j:j+9].reshape((18*9, 1))*loss
@@ -49,7 +49,7 @@ while not converge:
         theta = theta - alpha*gradient
         bias = bias - alpha*loss
     it = it + 1
-    if loss**2 < 5 or it >= numberofiter:
+    if loss**2 < 0.001 or it >= numberofiter:
         converge = True  
 
 # Testing
