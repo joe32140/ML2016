@@ -26,14 +26,14 @@ for i in range(240):
         if math.isnan(test_data[i*18+10, j]):
             test_data[i*18+10, j] = float(0)
 #print test_data[10]
-
+print x[9, :]
 # Gradient Descend
 theta = np.ones(18*9).reshape((18, 9))
 bias = 0.0
-alpha = 0.0001
+alpha = 0.000001
 print x[:, :9].shape
 for i in range(numberofiter):
-    for j in range(5):#5750
+    for j in range(5750):#5750
         hypothesis =sum(sum(x[:, j:j+9]*theta)) + bias
         #print x[:, :9]
         loss =  hypothesis - x[9, j+9]
