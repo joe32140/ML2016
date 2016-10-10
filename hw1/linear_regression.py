@@ -25,7 +25,7 @@ for i in range(240):
     for j in range(9):
         if math.isnan(test_data[i*18+10, j]):
             test_data[i*18+10, j] = float(0)
-
+#print test_data[10]
 
 # Gradient Descend
 theta = np.ones(18*9).reshape((18, 9))
@@ -37,7 +37,15 @@ for i in range(numberofiter):
         hypothesis =sum(sum(x[:, j:j+9]*theta)) + bias
         #print x[:, :9]
         loss =  hypothesis - x[9, j+10]
-        print("Iteration %d | Cost: %f" % (j, loss))
+       # print("Iteration %d | Cost: %f" % (j, loss))
         gradient = theta*loss
         theta = theta - alpha*gradient
         bias = bias - alpha*loss
+
+# Testing
+ans = open('ans.csv', 'w+')
+ans.write('id,value\n')
+for i in range(240):
+    predict = sum(sum(test_data[i:i+18, :]*theta)) + bias
+    ans.write('id_%d,%f\n' %(i, predict))
+ans.close()
