@@ -29,23 +29,27 @@ for i in range(240):
 
 # Gradient Descend
 theta = np.ones(18*9).reshape((18, 9))
-bias = 1.0
+bias = 0.0
 alpha = 0.0001
 print x[:, :9].shape
 for i in range(numberofiter):
-    for j in range(5750):#5751
+    for j in range(5):#5750
         hypothesis =sum(sum(x[:, j:j+9]*theta)) + bias
         #print x[:, :9]
-        loss =  hypothesis - x[9, j+10]
-       # print("Iteration %d | Cost: %f" % (j, loss))
-        gradient = theta*loss
+        loss =  hypothesis - x[9, j+9]
+        print("Iteration %d | Cost: %f" % (j, loss))
+        gradient = x[:, j:j+9]*loss
         theta = theta - alpha*gradient
         bias = bias - alpha*loss
 
 # Testing
+print theta
+print bias
 ans = open('ans.csv', 'w+')
 ans.write('id,value\n')
 for i in range(240):
     predict = sum(sum(test_data[i:i+18, :]*theta)) + bias
+    #print test_data[i:i+18, :]
+    #print predict
     ans.write('id_%d,%f\n' %(i, predict))
 ans.close()
