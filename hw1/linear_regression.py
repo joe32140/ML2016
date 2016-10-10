@@ -4,7 +4,7 @@ import math
 numberofiter = 8
 
 data_path = 'data/train.csv'
-
+test_data = 'data/test_X.csv'
 # Parsing Data
 my_data = np.genfromtxt (data_path, delimiter=",")
 my_data = my_data[1:]
@@ -17,6 +17,15 @@ for i in range(5760):
     if math.isnan(x[10, i]):
         x[10, i] = float(0)
 #print x[9, :]
+
+test_data = np.genfromtxt (test_data, delimiter=",")
+test_data = test_data[:, 2:]
+print test_data.shape
+for i in range(240):
+    for j in range(9):
+        if math.isnan(test_data[i*18+10, j]):
+            test_data[i*18+10, j] = float(0)
+
 
 # Gradient Descend
 theta = np.ones(18*9).reshape((18, 9))
