@@ -1,7 +1,7 @@
 import numpy as np
 import math
 
-numberofiter = 30000
+numberofiter = 20000
 
 data_path = 'data/train.csv'
 test_path = 'data/test_X.csv'
@@ -26,31 +26,30 @@ for i in range(240):
         if math.isnan(test_data[i*18+10, j]):
             test_data[i*18+10, j] = float(0)
 # Gradient Descend
-theta = np.random.random((18* 9,1))
-bias = np.random.random((1, 1));
-alpha = 0.000001
+theta = np.random.random(18*9).reshape((18*9, 1))
+bias = np.random.random(1);
+alpha = 1
 converge = False
 it = 0
+adagrad = np.zeros(18*9).reshape((18*9, 1))
+ada_bias = np.zeros(1).reshape((1,1))
 while not converge:
-    gradients = np.zeros((18*9, 1))
-    grad_bias = np.zeros((1, 1))
     for j in range(5750):#5750
         hypothesis =np.dot(x[:, j:j+9].reshape((1, 18*9)),theta) + bias
         loss =  hypothesis - x[9, j+9] 
-        #print("Iteration %d | Cost: %f" % (it, loss**2/5750))
-        gradients += x[:, j:j+9].reshape((18*9, 1))*loss + 50*theta
-        grad_bias += loss
-    #print("Iteration %d | Cost: %f" % (it, (grad_bias**2)/5750))
-    #print gradient[:5]
-    
-    theta = theta - ((2.0/5750)*alpha*gradients)
-    bias = bias - ((2.0/5750)*alpha*grad_bias)
-    if grad_bias**2/5650 < 0.01:
-        converge = True
-        print it
+       # print("Iteration %d | Cost: %f" % (j, loss**2))
+        gradient = 2*x[:, j:j+9].reshape((18*9, 1))*loss + 200*theta
+        #print gradient[:5]
+        adagrad += gradient*gradient
+        ada_bias += (2*loss)**2
+        #print adagrad**0.5
+        theta = theta - alpha*gradient/(adagrad**0.5)
+        bias = bias - alpha*loss/(ada_bias**0.5)
+       # if loss**2 < 0.0001:
+       #     converge = True
+       #     break
     it = it + 1
     if  it >= numberofiter:
-        print grad_bias**2/5650
         converge = True  
 
 # Testing
