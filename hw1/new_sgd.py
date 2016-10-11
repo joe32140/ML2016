@@ -50,11 +50,11 @@ while not converge:
         hypothesis = np.dot(x[i].reshape((1, 162)), theta) + bias
         loss = hypothesis - y[i]
         cost += loss**2/m
-        gradient = x[i].reshape((162, 1))*loss + 3*theta
+        gradient = x[i].reshape((162, 1))*loss + 5*theta 
         theta = theta - alpha*gradient
         bias  = bias - alpha*loss
     print("Iteration %d | Cost: %f" % (it, cost))
-    if cost <= 30:
+    if cost <= 34:
         converge = True
     it += 1
     if it >= numberofiter:
