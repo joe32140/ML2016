@@ -69,7 +69,7 @@ while not converge:
 
 print ('cost: %f', min_cost)
 # Testing
-ans = open('linear_regression.csv', 'w+')
+ans = open('kaggle_best.csv', 'w+')
 ans.write('id,value\n')
 for i in range(240):
     predict = np.dot(test_set[i].reshape((1, 162)), best_theta) + bias
