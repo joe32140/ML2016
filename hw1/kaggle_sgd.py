@@ -62,7 +62,7 @@ while not converge:
         theta = theta - alpha*gradient
         bias  = bias - alpha*loss
 
-    print("Iteration %d | Cost: %f" % (it, cost))
+    #print("Iteration %d | Cost: %f" % (it, cost))
     if cost < min_cost:
         min_cost = cost
         best_theta = theta
@@ -73,7 +73,7 @@ while not converge:
     if it >= numberofiter:
         converge = True
 
-print ('cost: %f', min_cost)
+#print ('cost: %f', min_cost)
 # Testing
 ans = open('kaggle_best.csv', 'w+')
 ans.write('id,value\n')

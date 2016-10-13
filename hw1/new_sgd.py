@@ -56,7 +56,7 @@ while not converge:
         gradient = x[i].reshape((162, 1))*loss + 4*theta 
         theta = theta - alpha*gradient
         bias  = bias - alpha*loss
-    print("Iteration %d | Cost: %f" % (it, cost))
+    #print("Iteration %d | Cost: %f" % (it, cost))
     
     if cost < min_cost:
         min_cost = cost
@@ -67,7 +67,7 @@ while not converge:
     if it >= numberofiter:
         converge = True
 
-print ('cost: %f', min_cost)
+#print ('cost: %f', min_cost)
 # Testing
 ans = open('linear_regression.csv', 'w+')
 ans.write('id,value\n')
