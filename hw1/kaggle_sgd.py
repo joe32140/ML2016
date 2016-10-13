@@ -3,8 +3,8 @@ import math
 
 numberofiter = 1000
 
-data_path = 'data/train.csv'
-test_path = 'data/test_X.csv'
+data_path = 'train.csv'
+test_path = 'test_X.csv'
 # Parsing Data
 my_data = np.genfromtxt (data_path, delimiter=",")
 my_data = my_data[1:]
@@ -40,7 +40,7 @@ for i in range(240):
 
 theta = np.random.random((162,1))
 bias = np.random.random(1)
-alpha = 0.0000001
+alpha = 0.00000005
 converge = False
 m = x.shape[0]
 it = 0
@@ -48,19 +48,25 @@ min_cost = 9999999999
 best_theta = theta
 while not converge:
     cost = 0.0
+    # Run SGD randomly
     for i in np.random.randint(m , size = m):
+        # Hypothesis of answer
         hypothesis = np.dot(x[i].reshape((1, 162)), theta) + bias
+        # Here is the derivation of loss function , the regularization will add in gradient step
         loss = hypothesis - y[i]
+        # Sum up all the cost in an epoch
         cost += loss**2/m
         # Gradient with regularization lamda = 2
-        gradient = x[i].reshape((162, 1))*loss + 4*theta 
+        gradient = x[i].reshape((162, 1))*loss + 4*theta
+        # Update the theta and bias
         theta = theta - alpha*gradient
         bias  = bias - alpha*loss
+
     print("Iteration %d | Cost: %f" % (it, cost))
-    
     if cost < min_cost:
         min_cost = cost
         best_theta = theta
+    # Stop condition
     if cost <= 31:
         converge = True
     it += 1

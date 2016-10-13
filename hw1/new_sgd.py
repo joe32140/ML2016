@@ -3,8 +3,8 @@ import math
 
 numberofiter = 1000
 
-data_path = 'data/train.csv'
-test_path = 'data/test_X.csv'
+data_path = 'train.csv'
+test_path = 'test_X.csv'
 # Parsing Data
 my_data = np.genfromtxt (data_path, delimiter=",")
 my_data = my_data[1:]
