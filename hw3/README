@@ -1,0 +1,11 @@
+Method2 請使用
+./train.sh $1 $2 $3
+$1 = data/ 
+$2 = trained_model
+$3 = trained_model2
+
+./test.sh $1 $2 $3 $4
+$1 = data/ 
+$2 = trained_model
+$3 = trained_model2
+$4 = prediction.csv
