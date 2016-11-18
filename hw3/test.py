@@ -2,7 +2,7 @@ import tensorflow as tf
 
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
-config.gpu_options.per_process_gpu_memory_fraction = 0.1
+config.gpu_options.per_process_gpu_memory_fraction = 1.0
 sess = tf.Session(config=config)
 tf.python.control_flow_ops = tf
 from keras import backend as K
