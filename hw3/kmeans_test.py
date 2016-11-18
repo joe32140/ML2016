@@ -32,7 +32,7 @@ print (x_test.shape)
 x_test = x_test.reshape(x_test.shape[0],3,32,32).astype('float32')
 x_test = x_test/255
 
-autoencoder = load_model(argv[2])
+autoencoder = load_model(sys.argv[2])
 get_encoder_output = K.function([autoencoder.layers[0].input],
                                   [autoencoder.layers[6].output])
 hidden_test = np.zeros(shape=(0 ,1 , 128))
@@ -41,7 +41,7 @@ for i in range(x_test.shape[0]/100):
     tmp = get_encoder_output([x_test[i*100:(i+1)*100]])[0]
     hidden_test = np.concatenate((hidden_test, tmp.reshape(100, 1, 128)), axis=0)
 
-kmeans = joblib.load(argv[3]) 
+kmeans = joblib.load(sys.argv[3]) 
 result = kmeans.predict(hidden_test.reshape(hidden_test.shape[0], 128))
 print (result.shape , result[0])
 with open(sys.argv[4], 'w+') as f:

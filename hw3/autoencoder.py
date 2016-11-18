@@ -100,5 +100,5 @@ kmeans = MiniBatchKMeans(init=label_hidden, n_clusters=10, batch_size=128,
                       n_init=10, max_no_improvement=10, verbose=0)
 
 kmeans.fit(hidden_mix.reshape(50000, 128))
-joblib.dump(kmeans, argv[3])
+joblib.dump(kmeans, sys.argv[3])
 
