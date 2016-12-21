@@ -6,7 +6,7 @@ def sigmoid(gamma):
     return 1 - 1 / (1 + np.exp(gamma))
   return 1 / (1 + np.exp(-gamma))
 
-numberofiter = 40000
+numberofiter = 20000
 data_path = sys.argv[1]
 is_validation = False
 
