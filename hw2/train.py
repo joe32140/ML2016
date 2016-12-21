@@ -6,7 +6,7 @@ def sigmoid(gamma):
     return 1 - 1 / (1 + np.exp(gamma))
   return 1 / (1 + np.exp(-gamma))
 
-numberofiter = 30000
+numberofiter = 20000
 data_path = sys.argv[1]
 is_validation = False
 
@@ -55,7 +55,7 @@ for i in range(numberofiter):
     bias  = bias - alpha*grad_bias/(ada_bias**0.5)
 
 model = np.concatenate((theta, bias.reshape((1, 1)) ), axis = 0)
-np.savetxt(argv[2], model)
+np.savetxt(sys.argv[2], model)
 
 
     

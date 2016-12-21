@@ -14,7 +14,6 @@ ans = open(sys.argv[3], 'w+')
 ans.write('id,label\n')
 for i in range(test_data.shape[0]):
     predict = np.dot(test_data[i].reshape((1, 57)), theta) + bias
-    print (predict.shape)
     if predict >= 0.5:
         predict = 1
     else :
